@@ -8,7 +8,7 @@ namespace WebGallery.Services
         {
             if (Directory.Exists(directoryPath))
             {
-                return Directory.GetFiles(directoryPath, "*.*", SearchOption.TopDirectoryOnly)
+                return Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories)
                                 .Where(file => file.EndsWith(".jpg") || file.EndsWith(".png") || file.EndsWith(".gif"))
                                 .ToArray();
             }

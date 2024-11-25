@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 using WebGallery.Components;
 using WebGallery.Services;
 
@@ -21,6 +23,16 @@ namespace WebGallery
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseStaticFiles(); 
+
+            // Serve static files from a custom directory
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(builder.Environment.ContentRootPath, "")),
+                RequestPath = "/StaticFiles"
+            });
 
             app.UseAntiforgery();
 
