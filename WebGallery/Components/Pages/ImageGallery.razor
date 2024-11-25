@@ -1,0 +1,32 @@
+﻿@page "/"
+@inject WebGallery.Services.ImageService ImageService
+
+<h3>Image Gallery</h3>
+
+@if (imageFiles == null)
+{
+    <p>Loading...</p>
+}
+else if (!imageFiles.Any())
+{
+    <p>No images found.</p>
+}
+else
+{
+    <div>
+        @foreach (var imageFile in imageFiles)
+        {
+            <img src="@imageFile" alt="Image" style="max-width: 200px; margin: 10px;" />
+        }
+    </div>
+}
+
+@code {
+    private IEnumerable<string> imageFiles;
+
+    protected override void OnInitialized()
+    {
+        var directoryPath = "."; // Change this to your desired directory
+        imageFiles = ImageService.GetImageFiles(directoryPath);
+    }
+}
